@@ -37,7 +37,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
 
     [Header("Graphics")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator HugosAnimator;
     
     void Awake()
     {
@@ -45,7 +45,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
         
         rigidbody.gravityScale = 0; // Set gravity scale to 0 so player won't "fall". We will apply our own gravity!
 
-        //animator = GetComponent<Animator>();
+        HugosAnimator = GetComponent<Animator>();
     }
     
     void Update()
