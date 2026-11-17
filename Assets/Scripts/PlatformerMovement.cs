@@ -1,10 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
             /////////////// INFORMATION ///////////////
 // This script automatically adds a Rigidbody2D, CapsuleCollider2D and CircleCollider2D component in the inspector.
 // The Rigidbody2D component should (probably) have some constraints: Freeze Rotation Z
-// The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position for ground check.
+// The Circle Collider 2D should be set to "is trigger", resized and moved to a proper position.
 
 // The following components are also needed: Player Input
 // Gravity for the project is set in Unity at Edit -> Project Settings -> Physics2D -> Gravity Y
@@ -18,6 +21,7 @@ public class PlatformerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     public bool controlEnabled { get; set; } = true; // You can edit this variable from Unity Events
+    public UnityEvent onAction2;
     
     private Vector2 moveInput;
     private Rigidbody2D rb;
@@ -73,7 +77,6 @@ public class PlatformerMovement : MonoBehaviour
         else if (wasGrounded == false && isGrounded == true)
         {
             jumpReleased = false;
-            // Has landed, play landing sound and trigger landing animation
         }
         wasGrounded = isGrounded;
         
@@ -174,6 +177,15 @@ public class PlatformerMovement : MonoBehaviour
         {
             jumpReleased = true;
             jumpInput = false;
+        }
+    }
+
+    public void Action2(InputAction.CallbackContext context)
+    {
+        if (context.started && controlEnabled)
+        {
+            Debug.Log("Action2!");
+            onAction2.Invoke();
         }
     }
 }
